@@ -6,7 +6,7 @@ import inc.sims.hustles.carry1st.product.repository.ProductRepository
 import inc.sims.hustles.carry1st.product.utils.NetworkState
 import kotlinx.coroutines.flow.Flow
 
-class ProductRepositoryImpl(productApi: ProductApi): ProductRepository {
+class ProductRepositoryImpl(private val productApi: ProductApi): ProductRepository {
     override suspend fun getProductData(): Flow<NetworkState<List<Product>>> {
         TODO("Not yet implemented")
     }
