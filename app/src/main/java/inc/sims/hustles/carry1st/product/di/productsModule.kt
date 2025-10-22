@@ -2,6 +2,8 @@ package inc.sims.hustles.carry1st.product.di
 
 import inc.sims.hustles.carry1st.constants.Constants
 import inc.sims.hustles.carry1st.product.api.ProductApi
+import inc.sims.hustles.carry1st.product.repository.ProductRepository
+import inc.sims.hustles.carry1st.product.repository.impl.ProductRepositoryImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -24,4 +26,6 @@ val productsModule = module {
             .build()
             .create(ProductApi::class.java)
     }
+
+    single<ProductRepository> { ProductRepositoryImpl(get()) }
 }
