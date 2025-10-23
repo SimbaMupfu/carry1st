@@ -18,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import inc.sims.hustles.carry1st.product.model.Product
@@ -71,7 +72,7 @@ fun ProductListView(product: Product){
           .padding(8.dp)
     ){
         AsyncImage(
-            model = product.imageURL, //painterResource(R.drawable.ic_launcher_background),
+            model = product.imageURL,
             contentDescription = null,
             contentScale = ContentScale.FillHeight,
             modifier = Modifier
@@ -91,19 +92,19 @@ fun ProductListView(product: Product){
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun ProductListUI(){
-//    val product = Product(
-//        productId = 4,
-//        name = "1250 Credits",
-//        description = "1250 Credits product bundle.",
-//        price = 5,
-//        currencyCode = "USD",
-//        currencySymbol = "$",
-//        quantity = 1250,
-//        imageURL = "https://dev-images-carry1st-products.s3.eu-west-2.amazonaws.com/13daef82-d896-4b29-90e9-30cbcb517e24.png",
-//        productStatus = "ACTIVE"
-//    )
-//    ProductListView(product)
-//}
+@Preview(showBackground = true)
+@Composable
+fun ProductListUI(){
+    val product = Product(
+        productId = 4,
+        name = "1250 Credits",
+        description = "1250 Credits product bundle.",
+        price = 5,
+        currencyCode = "USD",
+        currencySymbol = "$",
+        quantity = 1250,
+        imageURL = "https://dev-images-carry1st-products.s3.eu-west-2.amazonaws.com/13daef82-d896-4b29-90e9-30cbcb517e24.png",
+        productStatus = "ACTIVE"
+    )
+    ProductListView(product)
+}
