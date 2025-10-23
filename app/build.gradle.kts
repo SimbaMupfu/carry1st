@@ -40,7 +40,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.14"
+        kotlinCompilerExtensionVersion = "1.5.15"
     }
 }
 
@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.bundles.koin)
     implementation(libs.bundles.retrofit)
     implementation(libs.bundles.coroutines)
+    implementation(libs.bundles.coil)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -15,6 +15,10 @@ class ProductViewModel(private val productRepository: ProductRepository): ViewMo
     private val _products = MutableStateFlow<NetworkState<List<Product>>>(NetworkState.Loading)
     val products: StateFlow<NetworkState<List<Product>>> = _products
 
+    init {
+        loadProducts()
+    }
+
     fun loadProducts() = viewModelScope.launch {
         _products.value = NetworkState.Loading
         productRepository.getProductData().collectLatest {
