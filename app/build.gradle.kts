@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.bundles.retrofit)
     implementation(libs.bundles.coroutines)
     implementation(libs.bundles.coil)
+    implementation(libs.androidx.navigation.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
