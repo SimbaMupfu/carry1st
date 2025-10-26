@@ -15,14 +15,25 @@ class ProductViewModel(private val productRepository: ProductRepository): ViewMo
     private val _products = MutableStateFlow<NetworkState<List<Product>>>(NetworkState.Loading)
     val products: StateFlow<NetworkState<List<Product>>> = _products
 
+    private val _selectedProduct = MutableStateFlow<Product?>(null)
+    val selectedProduct: StateFlow<Product?> = _selectedProduct
+
     init {
         loadProducts()
     }
 
     fun loadProducts() = viewModelScope.launch {
         _products.value = NetworkState.Loading
-        productRepository.getProductData().collectLatest {
+        productRepository.getProductData().collect {
             _products.value = it
         }
+    }
+
+    fun selectProduct(product: Product) {
+        _selectedProduct.value = product
+    }
+
+    fun clearProductSelection(){
+        _selectedProduct.value = null
     }
 }
