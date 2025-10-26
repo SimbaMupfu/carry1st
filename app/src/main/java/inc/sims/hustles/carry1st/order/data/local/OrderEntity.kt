@@ -3,6 +3,7 @@ package inc.sims.hustles.carry1st.order.data.local
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import inc.sims.hustles.carry1st.order.data.local.AppDatabase.Companion.TABLE_ORDERS
 
 @Entity(tableName = TABLE_ORDERS)
 data class OrderEntity(
