@@ -16,28 +16,35 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import coil3.compose.AsyncImage
+import inc.sims.hustles.carry1st.core.navigation.Screen
+import inc.sims.hustles.carry1st.order.data.local.OrderEntity
+import inc.sims.hustles.carry1st.order.presentation.OrdersViewModel
 
 @Composable
-fun ProductDetail(navController: NavHostController,
-                  viewModel: ProductViewModel){
+fun ProductDetail(
+    navController: NavHostController,
+    viewModel: ProductViewModel,
+    ordersViewModel: OrdersViewModel
+) {
     val product by viewModel.selectedProduct.collectAsState()
     product?.let { product ->
-        Column(modifier = Modifier.padding(16.dp),
+        Column(
+            modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.CenterHorizontally) {
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             AsyncImage(
                 model = product.imageURL,
                 contentDescription = null,
                 contentScale = ContentScale.FillHeight
             )
 
-            Spacer(modifier = Modifier
-                .height(8.dp)
+            Spacer(
+                modifier = Modifier
+                    .height(8.dp)
             )
 
             Text(
@@ -46,18 +53,24 @@ fun ProductDetail(navController: NavHostController,
                 textAlign = TextAlign.Center
             )
 
-            Text("Price: ${product.currencyCode}${product.price}",
+            Text(
+                "Price: ${product.currencyCode}${product.price}",
                 style = MaterialTheme.typography.bodyLarge,
-                textAlign = TextAlign.Center)
+                textAlign = TextAlign.Center
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Text("Description:",
+            Text(
+                "Description:",
                 style = MaterialTheme.typography.titleMedium,
-                textAlign = TextAlign.Center)
-            Text(product.description,
+                textAlign = TextAlign.Center
+            )
+            Text(
+                product.description,
                 style = MaterialTheme.typography.bodyMedium,
-                textAlign = TextAlign.Center)
+                textAlign = TextAlign.Center
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -65,8 +78,19 @@ fun ProductDetail(navController: NavHostController,
                 modifier = Modifier
                     .fillMaxWidth(),
                 onClick = {
-                viewModel.clearProductSelection()
-            }) {
+                    val orderEntity = OrderEntity(
+                        productId = product.productId,
+                        name = product.name,
+                        description = product.description,
+                        price = product.price,
+                        currencyCode = product.currencyCode,
+                        currencySymbol = product.currencySymbol,
+                        imageURL = product.imageURL,
+                        productStatus = product.productStatus
+                    )
+                    ordersViewModel.saveOrder(orderEntity)
+                    navController.navigate(Screen.OrderSummary.route)
+                }) {
                 Text("Buy")
             }
         }

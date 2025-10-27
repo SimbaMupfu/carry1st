@@ -1,6 +1,7 @@
 package inc.sims.hustles.carry1st
 
 import android.app.Application
+import inc.sims.hustles.carry1st.order.di.ordersModule
 import inc.sims.hustles.carry1st.product.di.productsModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -12,7 +13,8 @@ class App: Application() {
         startKoin {
             androidContext(this@App)
             modules(
-                productsModule
+                productsModule,
+                ordersModule
             )
         }
     }
