@@ -1,6 +1,5 @@
 package inc.sims.hustles.carry1st.product.presentation
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,10 +18,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
+import inc.sims.hustles.carry1st.core.customviews.CustomAlertDialog
 import inc.sims.hustles.carry1st.core.navigation.Screen
 import inc.sims.hustles.carry1st.product.model.Product
 import inc.sims.hustles.carry1st.product.utils.NetworkState
@@ -34,7 +33,6 @@ fun ProductListUI(
 ) {
 
     val networkState by viewModel.products.collectAsState()
-    val context = LocalContext.current
 
     when(networkState){
         is NetworkState.Loading -> {
@@ -67,7 +65,14 @@ fun ProductListUI(
         }
         is NetworkState.Error -> {
             val errorMessage = (networkState as NetworkState.Error).message
-            Log.d("Product", "Error $errorMessage")
+            CustomAlertDialog(
+                title = "Error",
+                message = errorMessage,
+                confirmButtonText = "Retry",
+                onConfirm = {
+                    viewModel.loadProducts()
+                }
+            )
         }
     }
 }

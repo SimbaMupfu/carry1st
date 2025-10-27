@@ -25,6 +25,6 @@ fun AppNavHost(navHostController: NavHostController,
     ){
         composable(Screen.ProductList.route){ ProductListUI(navHostController, productViewModel) }
         composable(Screen.ProductDetail.route){ ProductDetail(navHostController, productViewModel, orderViewModel) }
-        composable(Screen.OrderSummary.route) { OrderSummaryUI(orderViewModel) }
+        composable(Screen.OrderSummary.route) { OrderSummaryUI(navHostController, orderViewModel) }
     }
 }

@@ -29,16 +29,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
+import inc.sims.hustles.carry1st.core.customviews.CustomAlertDialog
+import inc.sims.hustles.carry1st.core.navigation.Screen
 import inc.sims.hustles.carry1st.order.data.local.OrderEntity
 
 @Composable
-fun OrderSummaryUI(ordersViewModel: OrdersViewModel) {
+fun OrderSummaryUI(
+    navController: NavHostController,
+    ordersViewModel: OrdersViewModel
+) {
     val orders by ordersViewModel.orders.collectAsState()
     val totalAmount by ordersViewModel.totalAmount.collectAsState()
 
     if (orders.isEmpty()) {
-        Log.d("Orders", "No orders to display")
+        CustomAlertDialog(
+            title = "No Order Items",
+            message = "There are no items to display. You'll be redirected to the home page.",
+            onConfirm = {
+                navController.navigate(Screen.ProductList.route)
+            }
+        )
     } else {
         Column(
             modifier = Modifier
