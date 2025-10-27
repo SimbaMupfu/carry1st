@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import inc.sims.hustles.carry1st.order.presentation.OrderSummaryUI
 import inc.sims.hustles.carry1st.order.presentation.OrdersViewModel
 import inc.sims.hustles.carry1st.product.presentation.ProductDetail
 import inc.sims.hustles.carry1st.product.presentation.ProductListUI
@@ -24,5 +25,6 @@ fun AppNavHost(navHostController: NavHostController,
     ){
         composable(Screen.ProductList.route){ ProductListUI(navHostController, productViewModel) }
         composable(Screen.ProductDetail.route){ ProductDetail(navHostController, productViewModel, orderViewModel) }
+        composable(Screen.OrderSummary.route) { OrderSummaryUI(orderViewModel) }
     }
 }

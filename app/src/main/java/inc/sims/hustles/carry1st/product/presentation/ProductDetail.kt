@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil3.compose.AsyncImage
+import inc.sims.hustles.carry1st.core.navigation.Screen
 import inc.sims.hustles.carry1st.order.presentation.OrdersViewModel
 
 @Composable
@@ -69,6 +70,7 @@ fun ProductDetail(navController: NavHostController,
                 onClick = {
                 viewModel.clearProductSelection()
                     ordersViewModel.saveOrder(product)
+                    navController.navigate(Screen.OrderSummary.route)
             }) {
                 Text("Buy")
             }

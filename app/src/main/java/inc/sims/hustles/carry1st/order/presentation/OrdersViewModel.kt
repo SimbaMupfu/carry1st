@@ -18,6 +18,10 @@ class OrdersViewModel(
     private val _orders = MutableStateFlow<List<OrderEntity>>(emptyList())
     val orders = _orders.asStateFlow()
 
+    init {
+        fetchOrders()
+    }
+
     fun saveOrder(product: Product) = viewModelScope.launch {
         _savingOrder.value = true
         try {

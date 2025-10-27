@@ -1,7 +1,6 @@
 package inc.sims.hustles.carry1st.product.presentation
 
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -59,7 +58,6 @@ fun ProductListUI(
                         if(productItem.productStatus == "ACTIVE" && productItem.quantity > 0){
                             ProductListView(productItem){ selectedProduct ->
                                 viewModel.selectProduct(selectedProduct)
-                                Toast.makeText(context, selectedProduct.name, Toast.LENGTH_LONG).show()
                                 navController.navigate(Screen.ProductDetail.route)
                             }
                         }
