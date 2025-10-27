@@ -4,16 +4,22 @@ import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.Divider
+import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -29,6 +35,7 @@ import inc.sims.hustles.carry1st.order.data.local.OrderEntity
 @Composable
 fun OrderSummaryUI(ordersViewModel: OrdersViewModel) {
     val orders by ordersViewModel.orders.collectAsState()
+    val totalAmount by ordersViewModel.totalAmount.collectAsState()
 
     if (orders.isEmpty()) {
         Log.d("Orders", "No orders to display")
@@ -36,8 +43,11 @@ fun OrderSummaryUI(ordersViewModel: OrdersViewModel) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(30.dp)
+                .padding(16.dp)
         ) {
+            Text("Your Order", style = MaterialTheme.typography.headlineSmall)
+            Spacer(Modifier.height(12.dp))
+
             LazyColumn {
                 items(orders) { orderItem ->
                     OrderListView(orderItem) {
@@ -45,6 +55,14 @@ fun OrderSummaryUI(ordersViewModel: OrdersViewModel) {
                     }
                 }
             }
+
+            HorizontalDivider(Modifier, DividerDefaults.Thickness, DividerDefaults.color)
+
+            Text(
+                text = "Total: ${if (orders.firstOrNull()?.currencySymbol != null) orders.first().currencySymbol else "$"}${"%.2f".format(totalAmount)}",
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(top = 12.dp)
+            )
         }
     }
 

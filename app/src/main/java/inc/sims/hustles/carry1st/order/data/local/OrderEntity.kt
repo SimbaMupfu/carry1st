@@ -21,8 +21,8 @@ data class OrderEntity(
     val currencyCode: String,
     @ColumnInfo(name = "currencySymbol")
     val currencySymbol: String,
-    @ColumnInfo(name = "quantity")
-    val quantity: Int,
+    @ColumnInfo(name = "quantityOrdered")
+    val quantityOrdered: Int = 1,
     @ColumnInfo(name = "imageLocation")
     val imageURL: String,
     @ColumnInfo(name = "status")

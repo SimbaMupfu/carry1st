@@ -22,6 +22,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil3.compose.AsyncImage
 import inc.sims.hustles.carry1st.core.navigation.Screen
+import inc.sims.hustles.carry1st.order.data.local.OrderEntity
 import inc.sims.hustles.carry1st.order.presentation.OrdersViewModel
 
 @Composable
@@ -68,8 +69,18 @@ fun ProductDetail(navController: NavHostController,
                 modifier = Modifier
                     .fillMaxWidth(),
                 onClick = {
+                    val orderEntity = OrderEntity(
+                        productId = product.productId,
+                        name = product.name,
+                        description = product.description,
+                        price = product.price,
+                        currencyCode = product.currencyCode,
+                        currencySymbol = product.currencySymbol,
+                        imageURL = product.imageURL,
+                        productStatus = product.productStatus
+                    )
                 viewModel.clearProductSelection()
-                    ordersViewModel.saveOrder(product)
+                    ordersViewModel.saveOrder(orderEntity)
                     navController.navigate(Screen.OrderSummary.route)
             }) {
                 Text("Buy")

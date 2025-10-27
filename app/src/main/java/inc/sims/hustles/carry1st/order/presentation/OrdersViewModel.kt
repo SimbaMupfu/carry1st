@@ -6,6 +6,7 @@ import inc.sims.hustles.carry1st.order.data.local.OrderEntity
 import inc.sims.hustles.carry1st.order.data.repository.OrderRepository
 import inc.sims.hustles.carry1st.product.model.Product
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
@@ -18,14 +19,19 @@ class OrdersViewModel(
     private val _orders = MutableStateFlow<List<OrderEntity>>(emptyList())
     val orders = _orders.asStateFlow()
 
+    private val _totalAmount = MutableStateFlow(0.0)
+    val totalAmount: StateFlow<Double>
+        get() = _totalAmount
+
     init {
         fetchOrders()
+        getOrderTotal()
     }
 
-    fun saveOrder(product: Product) = viewModelScope.launch {
+    fun saveOrder(orderEntity: OrderEntity) = viewModelScope.launch {
         _savingOrder.value = true
         try {
-            orderRepository.addOrUpdateOrder(product)
+            orderRepository.addOrUpdateOrder(orderEntity)
         }finally {
             _savingOrder.value =  false
         }
@@ -40,5 +46,14 @@ class OrdersViewModel(
 
     fun deleteOrderItem(orderEntity: OrderEntity) = viewModelScope.launch {
         orderRepository.deleteOrderItem(orderEntity)
+    }
+
+    fun getOrderTotal() = viewModelScope.launch {
+        _totalAmount.value = 0.0
+        orderRepository.getOrderTotal().collect {
+            if (it != null) {
+                _totalAmount.value = it
+            }
+        }
     }
 }
