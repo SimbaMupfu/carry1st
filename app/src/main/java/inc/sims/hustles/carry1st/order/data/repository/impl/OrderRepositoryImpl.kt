@@ -20,4 +20,8 @@ class OrderRepositoryImpl(private val orderDao: OrderDao): OrderRepository {
             imageURL = product.imageURL,
             productStatus = product.productStatus
         ))
+
+    override suspend fun deleteOrderItem(orderEntity: OrderEntity) {
+        orderDao.deleteOrderItem(orderEntity.id)
+    }
 }

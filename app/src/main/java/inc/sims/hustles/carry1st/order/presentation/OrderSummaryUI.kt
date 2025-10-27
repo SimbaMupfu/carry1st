@@ -40,8 +40,8 @@ fun OrderSummaryUI(ordersViewModel: OrdersViewModel) {
         ) {
             LazyColumn {
                 items(orders) { orderItem ->
-                    Log.d("Orders", orderItem.name)
                     OrderListView(orderItem) {
+                        ordersViewModel.deleteOrderItem(orderItem)
                     }
                 }
             }

@@ -7,4 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface OrderRepository {
     fun fetchOrders(): Flow<List<OrderEntity>>
     suspend fun addOrUpdateOrder(product: Product): Long
+    suspend fun deleteOrderItem(orderEntity: OrderEntity)
 }

@@ -14,4 +14,7 @@ interface OrderDao {
 
     @Query("SELECT * FROM $TABLE_ORDERS ORDER BY id DESC")
     fun getOrders(): Flow<List<OrderEntity>>
+
+    @Query("DELETE FROM $TABLE_ORDERS WHERE id = :id")
+    suspend fun deleteOrderItem(id: Long)
 }

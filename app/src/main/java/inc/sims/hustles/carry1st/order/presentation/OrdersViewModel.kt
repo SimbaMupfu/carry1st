@@ -37,4 +37,8 @@ class OrdersViewModel(
             _orders.value = it
         }
     }
+
+    fun deleteOrderItem(orderEntity: OrderEntity) = viewModelScope.launch {
+        orderRepository.deleteOrderItem(orderEntity)
+    }
 }
