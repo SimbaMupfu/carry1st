@@ -34,10 +34,12 @@ jobs:
         id: tests
         run: ./gradlew test
 
+      - name: Build Release APK
+        run: ./gradlew assembleRelease
 
       - name: Upload Carry1st app apk
         id: uploadArtifact
         uses: actions/upload-artifact@v4
         with:
           name: Carry1st
-          path: app/build/outputs/apk/release/app-debug.apk
+          path: app/build/outputs/apk/release/app-release.apk
